@@ -4,38 +4,51 @@ import { View, Text, StyleSheet, Button, SafeAreaView, Dimensions } from 'react-
 import FadeView from '../animations/FadeView';
 import SlideView from '../animations/SlideView';
 import ScaleView from '../animations/ScaleView';
+import RotateView from '../animations/RotationView';
+
 
 const HomeScreen: React.FC = () => {
     const [visibility, setVisibility] = useState(false);
     const [slideVisibility, setSlideVisibility] = useState(false);
-    const [scaleVisibility, setScaleVisibility] = useState(false);
+    const [scaleSize, setScaleSize] = useState(0);
+    const [rotation, setRotation] = useState(false);
     
     const getScreenWidth = () => {
         return Math.round(Dimensions.get('window').width);
     };
 
+    const toggleScaleSize = () => {
+        setScaleSize((prevSize) => (prevSize + 1) % 3);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             
             <FadeView style={styles.fadingContainer} visibility={visibility}>
-                <Text style={styles.fadingText}>Fade Content</Text>
+                <Text style={styles.fadingText}>Fade me!</Text>
             </FadeView>
             <View style={styles.buttonRow}>
                 <Button title="Toggle visibility!" onPress={() => setVisibility(prev => !prev)} />
             </View>
             <View style={styles.containerForSlide} >    
                 <SlideView style={styles.slidingContainer} visible={slideVisibility}>
-                    <Text style={styles.fadingText}>Slide Content</Text>
+                    <Text style={styles.fadingText}>Slide me!</Text>
                 </SlideView>
             </View>
             <View style={styles.buttonRow}>
                 <Button title="Slide it!" onPress={() => setSlideVisibility(prev => !prev)} />
             </View>
-            <ScaleView style={styles.scalingContainer} visible={scaleVisibility}>
-                <Text style={styles.scalingText}>Scale Content</Text>
+            <ScaleView style={styles.scalingContainer} size={scaleSize}>
+                <Text style={styles.scalingText}>Scale me!</Text>
             </ScaleView>
             <View style={styles.buttonRow}>
-                <Button title="Scale it!" onPress={() => setScaleVisibility(prev => !prev)} />
+                <Button title="Scale it!" onPress={toggleScaleSize} />
+            </View>
+            <RotateView style={styles.fadingContainer} rotate={rotation}>
+                <Text style={styles.fadingText}>Rotate me!</Text>
+            </RotateView>
+            <View style={styles.buttonRow}>
+                <Button title="Rotate it!" onPress={() => setRotation(prev => !prev)} />
             </View>
             
         
@@ -45,11 +58,11 @@ const HomeScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      height: '100%',
+        marginTop: 100,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
     },
     fadingContainer: {
       padding: 16,
