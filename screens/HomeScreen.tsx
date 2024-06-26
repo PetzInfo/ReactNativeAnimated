@@ -2,21 +2,28 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 import FadeInView from '../animations/FadeInView';
+import FadeOutView from '../animations/FadeOutView';
 
 const HomeScreen: React.FC = () => {
-  const [fadeIn, setFadeIn] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
+    const [fadeIn, setFadeIn] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <FadeInView style={styles.fadingContainer} trigger={fadeIn}>
-        <Text style={styles.fadingText}>Content of the FadeInView</Text>
-      </FadeInView>
-      <View style={styles.buttonRow}>
-        <Button title="Fade In View" onPress={() => setFadeIn(prev => !prev)} />
-      </View>
-    </SafeAreaView>
-  );
+    return (
+        <SafeAreaView style={styles.container}>
+            <FadeInView style={styles.fadingContainer} trigger={fadeIn}>
+                <Text style={styles.fadingText}>FadeIn Content</Text>
+            </FadeInView>
+            <View style={styles.buttonRow}>
+                <Button title="Fade sth. in!" onPress={() => setFadeIn(prev => !prev)} />
+            </View>
+            <FadeOutView style={styles.fadingContainer} trigger={fadeOut}>
+                <Text style={styles.fadingText}>FadeOut Content</Text>
+            </FadeOutView>
+            <View style={styles.buttonRow}>
+                <Button title="Fade sth. out!" onPress={() => setFadeOut(prev => !prev)} />
+            </View>
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
