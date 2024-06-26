@@ -1,26 +1,44 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+// src/screens/HomeScreen.tsx
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 import FadeInView from '../animations/FadeInView';
 
 const HomeScreen: React.FC = () => {
+  const [fadeIn, setFadeIn] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <FadeInView style={styles.container}>
-        <Text style={{ fontSize: 28, textAlign: 'center', margin: 10 }}>Fading in</Text>
+    <SafeAreaView style={styles.container}>
+      <FadeInView style={styles.fadingContainer} trigger={fadeIn}>
+        <Text style={styles.fadingText}>Content of the FadeInView</Text>
       </FadeInView>
-    </View>
+      <View style={styles.buttonRow}>
+        <Button title="Fade In View" onPress={() => setFadeIn(prev => !prev)} />
+      </View>
+    </SafeAreaView>
   );
 };
 
-
 const styles = StyleSheet.create({
-    container: {
-        padding: 16,    
-        backgroundColor: 'powderblue',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 8,
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fadingContainer: {
+    padding: 16,
+    backgroundColor: 'powderblue',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  fadingText: {
+    fontSize: 28,
+  },
+  buttonRow: {
+    flexBasis: 100,
+    justifyContent: 'space-evenly',
+    marginVertical: 16,
+  },
 });
 
 export default HomeScreen;
