@@ -1,35 +1,36 @@
 // src/screens/HomeScreen.tsx
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
-import FadeInView from '../animations/FadeInView';
-import FadeOutView from '../animations/FadeOutView';
+import { View, Text, StyleSheet, Button, SafeAreaView, Dimensions } from 'react-native';
 import FadeView from '../animations/FadeView';
+import SlideView from '../animations/SlideView';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 const HomeScreen: React.FC = () => {
-    const [fadeIn, setFadeIn] = useState(false);
-    const [fadeOut, setFadeOut] = useState(false);
     const [visibility, setVisibility] = useState(false);
+    const [slideVisibility, setSlideVisibility] = useState(false);
+    
+    const getScreenWidth = () => {
+        return Math.round(Dimensions.get('window').width);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
-            <FadeInView style={styles.fadingContainer} trigger={fadeIn}>
-                <Text style={styles.fadingText}>FadeIn Content</Text>
-            </FadeInView>
-            <View style={styles.buttonRow}>
-                <Button title="Fade sth. in!" onPress={() => setFadeIn(prev => !prev)} />
-            </View>
-            <FadeOutView style={styles.fadingContainer} trigger={fadeOut}>
-                <Text style={styles.fadingText}>FadeOut Content</Text>
-            </FadeOutView>
-            <View style={styles.buttonRow}>
-                <Button title="Fade sth. out!" onPress={() => setFadeOut(prev => !prev)} />
-            </View>
+            
             <FadeView style={styles.fadingContainer} visibility={visibility}>
                 <Text style={styles.fadingText}>Fade Content</Text>
             </FadeView>
             <View style={styles.buttonRow}>
                 <Button title="Toggle visibility!" onPress={() => setVisibility(prev => !prev)} />
             </View>
+            <View style={{ width: '100%', alignItems: 'flex-start'}} >    
+                <SlideView style={styles.slidingContainer} visible={slideVisibility}>
+                    <Text style={styles.fadingText}>Slide Content</Text>
+                </SlideView>
+            </View>
+            <View style={styles.buttonRow}>
+                <Button title="Slide sth. in!" onPress={() => setSlideVisibility(prev => !prev)} />
+            </View>
+            
         
         </SafeAreaView>
     );
@@ -40,6 +41,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    height: '100%',
   },
   fadingContainer: {
     padding: 16,
@@ -49,6 +52,13 @@ const styles = StyleSheet.create({
   },
   fadingText: {
     fontSize: 28,
+  },
+  slidingContainer: {
+    width: '50%',
+    alignItems: 'center',
+    backgroundColor: 'powderblue',
+    padding: 16,
+    borderRadius: 8,
   },
   buttonRow: {
     flexBasis: 100,
