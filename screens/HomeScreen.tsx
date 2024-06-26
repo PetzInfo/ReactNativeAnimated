@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 import FadeInView from '../animations/FadeInView';
 import FadeOutView from '../animations/FadeOutView';
+import FadeView from '../animations/FadeView';
 
 const HomeScreen: React.FC = () => {
     const [fadeIn, setFadeIn] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
+    const [visibility, setVisibility] = useState(false);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -22,6 +24,13 @@ const HomeScreen: React.FC = () => {
             <View style={styles.buttonRow}>
                 <Button title="Fade sth. out!" onPress={() => setFadeOut(prev => !prev)} />
             </View>
+            <FadeView style={styles.fadingContainer} visibility={visibility}>
+                <Text style={styles.fadingText}>Fade Content</Text>
+            </FadeView>
+            <View style={styles.buttonRow}>
+                <Button title="Toggle visibility!" onPress={() => setVisibility(prev => !prev)} />
+            </View>
+        
         </SafeAreaView>
     );
 };
