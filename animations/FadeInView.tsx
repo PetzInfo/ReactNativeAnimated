@@ -1,4 +1,3 @@
-// src/animations/FadeInView.tsx
 import React, { useRef, useEffect } from 'react';
 import { Animated, StyleProp, ViewStyle } from 'react-native';
 
