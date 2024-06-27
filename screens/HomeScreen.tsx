@@ -25,14 +25,7 @@ const HomeScreen: React.FC = () => {
         <SafeAreaView style={styles.container}>
             
             <FadeView/>
-            <View style={styles.containerForSlide} >    
-                <SlideView style={styles.slidingContainer} slideSide={side}>
-                    <Text style={styles.fadingText}>Slide me!</Text>
-                </SlideView>
-            </View>
-            <View style={styles.buttonRow}>
-                <Button title="Slide it!" onPress={() => setSide(prev => !prev)} />
-            </View>
+            <SlideView/>
             <ScaleView style={styles.scalingContainer} size={scaleSize}>
                 <Text style={styles.scalingText}>Scale me!</Text>
             </ScaleView>

@@ -1,39 +1,66 @@
-// src/animations/SlideView.tsx
-import React, { useRef, useEffect } from 'react';
-import { Animated, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
 
-interface SlideViewProps {
-  duration?: number;
-  style?: StyleProp<ViewStyle>;
-  children: React.ReactNode;
-  slideSide: boolean;
-}
+const SliedView = () => {
+  const posX = useState( new Animated.Value(0))[0];
 
-const SlideView: React.FC<SlideViewProps> = ({ duration = 500, style, children, slideSide }) => {
-  const slideAnim = useRef(new Animated.Value(slideSide ? 0 : 1)).current;
+  const screenWidth = Dimensions.get('window').width; 
 
-  const getScreenWidth = () => {
-    return Math.round(Dimensions.get('window').width);
-  };
+  function slideRight() {
+    Animated.timing(posX, {
+      toValue: screenWidth/2 - 25,
+      duration: 1000,
+      useNativeDriver: true
+    }).start();
+  }
 
-  useEffect(() => {
-    Animated.timing(slideAnim, {
-      toValue: slideSide ? 0 : 1,
-      duration: duration,
+  function slideLeft() {
+    Animated.timing(posX, {
+      toValue: -screenWidth/2 + 25,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
-  }, [slideSide, slideAnim, duration]);
-
-  const translateX = slideAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, getScreenWidth()/2] 
-  });
+  }
 
   return (
-    <Animated.View style={[style, { transform: [{ translateX }] }]}>
-      {children}
-    </Animated.View>
+    <View style={styles.slideContainer}>
+      <Animated.View style={{
+            width: 50,
+            height: 50,
+            transform: [{translateX: posX}],
+            borderRadius: 25,
+            backgroundColor: 'red',
+      }}/>
+      <View style={styles.touchables}>
+        <TouchableOpacity onPress={slideLeft} style={styles.button}>
+          <Text>Slide left</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={slideRight} style={styles.button}>
+          <Text>Slide Right</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
-};
+}
 
-export default SlideView;
+const styles = StyleSheet.create({
+  slideContainer: {
+    marginBottom: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  touchables: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: '#f1f1f1',
+    borderRadius: 8,
+    padding: 8
+  },
+});
+
+export default SliedView;

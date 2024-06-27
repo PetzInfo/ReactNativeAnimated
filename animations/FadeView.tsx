@@ -29,10 +29,10 @@ const FadeView = () => {
                 backgroundColor: 'red',
             }}/>
             <View style= {styles.touchables}>
-                <TouchableOpacity onPress={fadeIn}>
+                <TouchableOpacity onPress={fadeIn} style={styles.button}>
                     <Text>Fade In</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={fadeOut}>
+                <TouchableOpacity onPress={fadeOut} style={styles.button}>
                     <Text>Fade Out</Text>
                 </TouchableOpacity>
             </View>
@@ -57,6 +57,11 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: 20,
     },
+    button: {
+        backgroundColor: '#f1f1f1',
+        borderRadius: 8,
+        padding: 8
+      },
 });
 
 
