@@ -24,12 +24,7 @@ const HomeScreen: React.FC = () => {
     return (
         <SafeAreaView style={styles.container}>
             
-            <FadeView style={styles.fadingContainer} visibility={visibility}>
-                <Text style={styles.fadingText}>Fade me!</Text>
-            </FadeView>
-            <View style={styles.buttonRow}>
-                <Button title="Toggle visibility!" onPress={() => setVisibility(prev => !prev)} />
-            </View>
+            <FadeView/>
             <View style={styles.containerForSlide} >    
                 <SlideView style={styles.slidingContainer} slideSide={side}>
                     <Text style={styles.fadingText}>Slide me!</Text>

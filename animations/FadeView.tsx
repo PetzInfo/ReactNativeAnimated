@@ -1,29 +1,63 @@
-import React, { useEffect, useRef } from "react";
-import { StyleProp, ViewStyle, Animated } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Text, Animated, View, TouchableOpacity, StyleSheet } from "react-native";
 
-interface FadeViewProps {
-    duration?: number;
-    style?: StyleProp<ViewStyle>;
-    children: React.ReactNode;
-    visibility: boolean;
-}
+const FadeView = () => {
+    const valueToAnimate = useState(new Animated.Value(0))[0];
 
-const FadeView: React.FC<FadeViewProps> = ({ duration = 1000, style, children, visibility }) => {
-    const fadeAnim = useRef(new Animated.Value(visibility ? 1 : 0)).current;
-
-    useEffect(() => {
-        Animated.timing(fadeAnim, {
-            toValue: visibility ? 1 : 0,
-            duration: duration,
+    function fadeIn() {
+        Animated.timing(valueToAnimate, {
+            toValue: 1,
+            duration: 2000,
             useNativeDriver: true,
         }).start();
-    }, [visibility, fadeAnim, duration]);
+    }
+    function fadeOut() {
+        Animated.timing(valueToAnimate, {
+            toValue: 0,
+            duration: 2000,
+            useNativeDriver: true,
+        }).start();
+    }
 
-    return (
-        <Animated.View style={[style, { opacity: fadeAnim }]}>
-            {children}
-        </Animated.View>
+	return (
+        <View style={styles.container}>
+            <Animated.View style={{
+                width: 50,
+                height: 50,
+                opacity: valueToAnimate,
+                borderRadius: 25,
+                backgroundColor: 'red',
+            }}/>
+            <View style= {styles.touchables}>
+                <TouchableOpacity onPress={fadeIn}>
+                    <Text>Fade In</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={fadeOut}>
+                    <Text>Fade Out</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
-};
+}
+
+
+
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 100,
+        marginBottom: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+    },
+    touchables: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginTop: 20,
+    },
+});
+
 
 export default FadeView;
