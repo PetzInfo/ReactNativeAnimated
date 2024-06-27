@@ -9,7 +9,7 @@ import RotateView from '../animations/RotationView';
 
 const HomeScreen: React.FC = () => {
     const [visibility, setVisibility] = useState(false);
-    const [slideVisibility, setSlideVisibility] = useState(false);
+    const [side, setSide] = useState(false);
     const [scaleSize, setScaleSize] = useState(0);
     const [rotation, setRotation] = useState(false);
     
@@ -31,12 +31,12 @@ const HomeScreen: React.FC = () => {
                 <Button title="Toggle visibility!" onPress={() => setVisibility(prev => !prev)} />
             </View>
             <View style={styles.containerForSlide} >    
-                <SlideView style={styles.slidingContainer} visible={slideVisibility}>
+                <SlideView style={styles.slidingContainer} slideSide={side}>
                     <Text style={styles.fadingText}>Slide me!</Text>
                 </SlideView>
             </View>
             <View style={styles.buttonRow}>
-                <Button title="Slide it!" onPress={() => setSlideVisibility(prev => !prev)} />
+                <Button title="Slide it!" onPress={() => setSide(prev => !prev)} />
             </View>
             <ScaleView style={styles.scalingContainer} size={scaleSize}>
                 <Text style={styles.scalingText}>Scale me!</Text>

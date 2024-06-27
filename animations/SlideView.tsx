@@ -6,11 +6,11 @@ interface SlideViewProps {
   duration?: number;
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
-  visible: boolean;
+  slideSide: boolean;
 }
 
-const SlideView: React.FC<SlideViewProps> = ({ duration = 500, style, children, visible }) => {
-  const slideAnim = useRef(new Animated.Value(visible ? 0 : 1)).current;
+const SlideView: React.FC<SlideViewProps> = ({ duration = 500, style, children, slideSide }) => {
+  const slideAnim = useRef(new Animated.Value(slideSide ? 0 : 1)).current;
 
   const getScreenWidth = () => {
     return Math.round(Dimensions.get('window').width);
@@ -18,11 +18,11 @@ const SlideView: React.FC<SlideViewProps> = ({ duration = 500, style, children, 
 
   useEffect(() => {
     Animated.timing(slideAnim, {
-      toValue: visible ? 0 : 1,
+      toValue: slideSide ? 0 : 1,
       duration: duration,
       useNativeDriver: true,
     }).start();
-  }, [visible, slideAnim, duration]);
+  }, [slideSide, slideAnim, duration]);
 
   const translateX = slideAnim.interpolate({
     inputRange: [0, 1],
