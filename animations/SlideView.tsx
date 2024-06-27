@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Animated, View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
+import RedCircle from '../components/redCircle';
 
 const SliedView = () => {
   const posX = useState( new Animated.Value(0))[0];
@@ -24,13 +25,9 @@ const SliedView = () => {
 
   return (
     <View style={styles.slideContainer}>
-      <Animated.View style={{
-            width: 50,
-            height: 50,
-            transform: [{translateX: posX}],
-            borderRadius: 25,
-            backgroundColor: 'red',
-      }}/>
+      <Animated.View style={{transform: [{translateX: posX}]}}>
+        <RedCircle/>
+      </Animated.View>
       <View style={styles.touchables}>
         <TouchableOpacity onPress={slideLeft} style={styles.button}>
           <Text>Slide left</Text>
